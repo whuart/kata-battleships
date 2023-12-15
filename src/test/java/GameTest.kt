@@ -26,4 +26,15 @@ class GameTest {
             board.add(Ship(CRUISER, Direction.HORIZONTAL, Coordinate(A, `1`)))
         }
     }
+
+    @Test
+    fun `should not add two ships that overlap`() {
+        val board = Board()
+
+        board.add(Ship(AIRCRAFT_CARRIER, Direction.HORIZONTAL, Coordinate(A, `1`)))
+
+        assertThrows<IllegalArgumentException> {
+            board.add(Ship(DESTROYER, Direction.HORIZONTAL, Coordinate(B, `1`)))
+        }
+    }
 }
