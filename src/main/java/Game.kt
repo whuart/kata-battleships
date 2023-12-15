@@ -23,10 +23,16 @@ data class Ship(
     val type: ShipType,
     val direction: Direction,
     val coordinate: Coordinate,
-)
+) {
+    fun overlaps(otherShip: Ship): Boolean {
+        return coordinate == otherShip.coordinate
+    }
+}
 
 data class Board(private val ships: MutableList<Ship> = mutableListOf()) {
     fun add(ship: Ship) {
+        require(ships.none { it.type == ship.type })
+        require(ships.none { it.overlaps(ship) })
         this.ships.add(ship)
     }
 }
